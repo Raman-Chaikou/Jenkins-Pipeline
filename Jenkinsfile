@@ -4,10 +4,13 @@ pipeline {
             image 'maven:3.3.3' 
         } 
     }
+    parameters {
+        string(name: 'branch', defaultValue: 'master')
+    }
     stages {
         stage('hello') {
             steps {
-                sh 'echo "Hello Goose"'
+                echo "Hello Goose ${params.branch}"
             }
         }
         stage('build') {
