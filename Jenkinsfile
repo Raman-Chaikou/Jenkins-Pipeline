@@ -7,6 +7,9 @@ pipeline {
     parameters {
         string(name: 'branch', defaultValue: 'master')
     }
+    environment {
+        ENV = ''
+    }
     stages {
         stage('hello') {
             steps {
@@ -15,7 +18,20 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'mvn --version'
+                ENV = ""sh 'mvn --version'""
+            }
+        }
+        stage('dev') {
+            steps {
+                echo "====++++deploy to dev env++++===="
+                echo ENV
+            }
+        }
+        stage('qc') {
+            when
+            steps {
+                echo "====++++deploy to qc env++++===="
+                echo ENV
             }
         }
     }
