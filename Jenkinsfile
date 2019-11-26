@@ -8,7 +8,12 @@ pipeline {
         string(name: 'branch', defaultValue: 'master')
     }
     environment {
-        ENV = ''
+        CAT_V = 'D'
+        MODAS_CURRENT_TIMESTAMP = """${sh(
+                    returnStdout: true,
+                    script: '$(date +%Y-%m-%d_%H-%M-%S-%N)'
+                )}
+                """
     }
     stages {
         stage('hello') {
@@ -18,20 +23,19 @@ pipeline {
         }
         stage('build') {
             steps {
-                ENV = ""sh 'mvn --version'""
+                sh 'printenv'
             }
         }
         stage('dev') {
             steps {
                 echo "====++++deploy to dev env++++===="
-                echo ENV
+                sh 'printenv'
             }
         }
         stage('qc') {
-            when
             steps {
                 echo "====++++deploy to qc env++++===="
-                echo ENV
+                sh 'printenv'
             }
         }
     }
