@@ -22,9 +22,6 @@ pipeline {
             }
         }
         stage('build') {
-            environment {
-                VERSION = 
-            }
             steps {
                 sh 'printenv'
             }
