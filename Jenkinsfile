@@ -6,14 +6,14 @@ pipeline {
     }
     parameters {
         string(name: 'branch', defaultValue: 'master')
+        choice(name: 'ch', choices:['one', 'two'])
     }
     environment {
-        CAT_V = 'D'
         MODAS_CURRENT_TIMESTAMP = """${sh(
                     returnStdout: true,
-                    script: '$(date +%Y-%m-%d_%H-%M-%S-%N)'
+                    script: 'echo $(date +%Y-%m-%d_%H-%M-%S-%N)'
                 )}
-                """
+                """.trim()
     }
     stages {
         stage('hello') {
@@ -22,6 +22,9 @@ pipeline {
             }
         }
         stage('build') {
+            environment {
+                VERSION = 
+            }
             steps {
                 sh 'printenv'
             }
