@@ -7,6 +7,9 @@ pipeline {
     triggers {
         pollSCM('H/3 * * * *')
     }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
     parameters {
         string(name: 'branch', defaultValue: 'master')
         choice(name: 'ch', choices:['one', 'two'])
@@ -22,23 +25,6 @@ pipeline {
         stage('hello') {
             steps {
                 echo "Hello Goose ${params.branch}"
-            }
-        }
-        stage('build') {
-            steps {
-                sh 'printenv'
-            }
-        }
-        stage('dev') {
-            steps {
-                echo "====++++deploy to dev env++++===="
-                sh 'printenv'
-            }
-        }
-        stage('qc') {
-            steps {
-                echo "====++++deploy to qc env++++===="
-                sh 'printenv'
             }
         }
     }
