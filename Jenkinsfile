@@ -4,6 +4,9 @@ pipeline {
             image 'maven:3.3.3' 
         } 
     }
+    triggers {
+        pollSCM('H/3 * * * *')
+    }
     parameters {
         string(name: 'branch', defaultValue: 'master')
         choice(name: 'ch', choices:['one', 'two'])
