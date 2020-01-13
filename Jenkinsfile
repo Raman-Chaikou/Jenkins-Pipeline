@@ -6,13 +6,15 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
+    parameters {
+        string(name: 'branch', defaultValue: 'master')
+    }
     environment {
         MODAS_CURRENT_TIMESTAMP = """${sh(
                     returnStdout: true,
                     script: 'echo $(date +%Y-%m-%d_%H-%M-%S-%N)'
                 )}
                 """.trim()
-        ENV = "dev"        
     }
     stages {
         stage('hello') {
