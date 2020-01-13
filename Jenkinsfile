@@ -6,22 +6,25 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
-    parameters {
-        string(name: 'branch', defaultValue: 'master')
-        choice(name: 'ch', choices:['one', 'two'])
-    }
     environment {
         MODAS_CURRENT_TIMESTAMP = """${sh(
                     returnStdout: true,
                     script: 'echo $(date +%Y-%m-%d_%H-%M-%S-%N)'
                 )}
                 """.trim()
+        ENV = "dev"        
     }
     stages {
         stage('hello') {
             steps {
                 echo "Hello Goose ${params.branch}"
             }
+        }
+        stage('env') {
+            steps {
+                echo "It is ${ENV} environment"
+            }
+
         }
     }
     post {
