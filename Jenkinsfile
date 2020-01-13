@@ -22,12 +22,6 @@ pipeline {
                 echo "Hello Goose ${params.branch}"
             }
         }
-        stage('env') {
-            steps {
-                echo "It is ${ENV} environment"
-            }
-
-        }
     }
     post {
         always {
