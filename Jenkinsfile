@@ -7,7 +7,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     parameters {
-        string(name: 'branch', defaultValue: 'master')
+        string(name: 'branch', defaultValue: 'feature')
     }
     environment {
         MODAS_CURRENT_TIMESTAMP = """${sh(
