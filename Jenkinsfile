@@ -1,7 +1,7 @@
 pipeline {
     agent any
     triggers {
-        pollSCM('H/3 * * * *')
+        pollSCM('H/2 * * * *')
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
@@ -12,12 +12,13 @@ pipeline {
                     script: 'echo $(date +%Y-%m-%d_%H-%M-%S-%N)'
                 )}
                 """.trim()
-        ENV = "dev"        
+        ENV = "feature"        
     }
     stages {
         stage('hello') {
             steps {
                 echo "Hello Goose ${params.branch}"
+                echo "feature branch"
             }
         }
         stage('env') {
@@ -25,17 +26,6 @@ pipeline {
                 echo "It is ${ENV} environment"
             }
 
-        }
-    }
-    post {
-        always {
-            echo 'This will always run'
-        }
-        success {
-            echo 'This will run only if successful'
-        }
-        failure {
-            echo 'This will run only if failed'
         }
     }
 }
