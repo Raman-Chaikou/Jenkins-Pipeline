@@ -18,9 +18,20 @@ pipeline {
                 """.trim()
     }
     stages {
+        stage('checkout') {
+            steps {
+                checkout([$class: 'GitSCM', 
+                branches: [[name: "*/${params.branch}"]], 
+                doGenerateSubmoduleConfigurations: false, 
+                extensions: [], 
+                submoduleCfg: [], 
+                userRemoteConfigs: [[url: 'https://github.com/Raman-Chaikou/Jenkins-Pipeline.git']]])
+            }
+        }
         stage('hello') {
             steps {
                 echo "Hello Goose ${params.branch}"
+                echo "master branch"
             }
         }
         stage('Deploy to dev') {
