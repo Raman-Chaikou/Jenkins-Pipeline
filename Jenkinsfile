@@ -39,11 +39,6 @@ pipeline {
                 echo "deploy to dev"
             }
         }
-        stage('Ready to deploy to QC env') {
-            steps {
-                input "Deploy to QC env?"
-            }
-        }
         stage('Deploy to QC') {
             steps {
                 echo "deploy to qc"
