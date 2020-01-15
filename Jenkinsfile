@@ -23,16 +23,20 @@ pipeline {
                 echo "Hello Goose ${params.branch}"
             }
         }
-    }
-    post {
-        always {
-            echo 'This will always run'
+        stage('Deploy to dev') {
+            steps {
+                echo "deploy to dev"
+            }
         }
-        success {
-            echo 'This will run only if successful'
+        stage('Ready to deploy to QC env') {
+            steps {
+                input "Deploy to QC env?"
+            }
         }
-        failure {
-            echo 'This will run only if failed'
+        stage('Deploy to QC') {
+            steps {
+                echo "deploy to qc"
+            }
         }
     }
 }
